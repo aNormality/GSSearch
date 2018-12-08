@@ -13,6 +13,7 @@ class GeoFinder(object):
     alphall=1
     c=1
 
+    #this dict has be dynamically passed from the TweetCore module. This contains for each word , the coordinates and their distribution %
     wordGeoDist = {
         'sweets' : {
             (5,0) : .20,
