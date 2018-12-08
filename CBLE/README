@@ -1,0 +1,9 @@
+Download the entire folder and run the CBLEMain.py file
+
+It gives the probabilities of the cities for each user based on the words used in their tweets.
+
+TODO
+1. Hard coded the user tweet words in UserTweets.py.  This has be replaced by the actual user tweet words
+2. Harde coded the word to city probabilities in WordLoc.py. This has to be replaced with the logic which generates geo location centers for each words used. This is the real part. My thoughts:
+  a. find local words from the tweets using Spatial Focus and Dispersion 
+  b. use training words for tweets which had proper geo locatin details.
