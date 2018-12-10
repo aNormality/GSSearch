@@ -1,0 +1,24 @@
+This project targets to identify geo local words. 
+This is the main idea:
+Stage 1
+1. get tweets which had proper geolocations
+2. removed stop words/words which donot add any value to sentences
+
+Stage 2
+Build a list of words against their geo locations and frequency of usage per person
+
+Stage 3
+Take one word at a time from the above list :
+  (1) Find the best normal distribution (with low sd)* which fits the geo data distribution of the word. The best fit Normal Distribution will give the mean (center) coordinate for the word used which becomes the local word for that location. 
+  (2) We however need to have a cutoff to MSE of the best fit with an actual Normal distribution beyond which the word should not be considered as local.
+  (3) TODO-A local word can be associated to more than one geo location. Thus the above algorithm needs to be tuned to give multi-geolocations- 
+  
+  
+  
+*Why normal distribution
+It is based on the assumption that a local word will be used at a particular geo location lot more than its surrounding geo locations. As we move away from the center (mean of the normal distribution) the probability of usage of those words will be lot let and will decline exponentially. Thus it resembles a low sd normal distribution.
+
+How to run the project:
+1. Download the code 
+2. Run the TweetCore.py
+3. It will give the best fit coordinates for three words which are manually configured with thei geo locations and frequencies. 
