@@ -7,6 +7,7 @@ class TweetCore(object):
 
     objGeoFinder = GeoCoordinateFinder()
 
+    #input stage 1
     userTweetBase = {
         'user1' : {
             'loc': {'x':10,'y':20},
@@ -18,6 +19,7 @@ class TweetCore(object):
         }
     }
 
+    #stage 2 derived from stage 1
     #words used per person at a geo location
     locWordListPP = {
         (18,5) : {'nalanda':0,'durga':2,'howrah':2},
