@@ -1,6 +1,11 @@
 __author__ = 'AP'
 
+from GeoCoordinateFinder import GeoCoordinateFinder
+import math
+
 class TweetCore(object):
+
+    objGeoFinder = GeoCoordinateFinder()
 
     userTweetBase = {
         'user1' : {
@@ -15,29 +20,49 @@ class TweetCore(object):
 
     #words used per person at a geo location
     locWordListPP = {
-        (5,5) : {'sweets':20,'durga':25,'howrah':32},
-        (4,5) : {'sweets':8,'durga':12,'howrah':12},
-        (2,5) : {'sweets':5,'durga':2,'howrah':3},
-        (0,5) : {'sweets':0,'durga':2,'howrah':1},
-        (6,5) : {'sweets':8,'durga':12,'howrah':12},
-        (8,5) : {'sweets':5,'durga':2,'howrah':3},
-        (10,5) : {'sweets':0,'durga':2,'howrah':1},
+        (18,5) : {'nalanda':0,'durga':2,'howrah':2},
+        (16,5) : {'nalanda':0,'durga':2,'howrah':3},
+        (14,5) : {'nalanda':5,'durga':2,'howrah':10},
+        (12,5) : {'nalanda':10,'durga':2,'howrah':41},
+        (10,5) : {'nalanda':50,'durga':2,'howrah':13},
+        (8,5) : {'nalanda':10,'durga':2,'howrah':6},
+        (6,5) : {'nalanda':3,'durga':12,'howrah':6},
+        (5,5) : {'nalanda':0,'durga':25,'howrah':6},
+        (4,5) : {'nalanda':0,'durga':12,'howrah':5},
+        (2,5) : {'nalanda':0,'durga':2,'howrah':3},
+        (0,5) : {'nalanda':0,'durga':2,'howrah':1}
     }
 
-    wordGeoDist = {
-        'sweets' : {
-            (5,0) : .20,
-            (4,0) : .08,
-            (2,0) : .05,
-            (0,0) : 0,
-            (6,0) : .08,
-            (8,0) : .05,
-            (10,0) : 0
-        }
-    }
+
+    def wordGeoDistribution(self):
+        wGDist={}
+        ltr={}
+
+        for loc in self.locWordListPP.keys():
+            wl=self.locWordListPP[loc]
+            for w in wl.keys():
+                wc=wl[w]
+                if wGDist.has_key(w):
+                    ltr = wGDist[w]
+                    if ltr.has_key(loc):
+                        v=ltr[loc]
+                        ltr[loc] = v + wc
+                    else:
+                        ltr[loc] = wc
+                else:
+                    wGDist[w] = {}
+                    (wGDist[w])[loc] = wc
+
+        #print wGDist
+        self.tweetGeoLocator(wGDist)
+
+    def tweetGeoLocator(self,wGeoDist):
+        self.objGeoFinder.getWordCenters(wGeoDist)
 
 
 obj = TweetCore()
-for w in obj.wordGeoDist.keys():
-    for item in obj.wordGeoDist[w]:
-        print item
+obj.wordGeoDistribution()
+
+#print(math.log(4792154.84073,math.e))
+#print(math.log(3637278.91725,math.e))
+#print(math.log(1589873.12627,math.e))
